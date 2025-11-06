@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Chainlit 前端服务
+  chainlit-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ask-danta-frontend
+    ports:
+      - "${CHAINLIT_PORT:-3000}:3000"
+    environment:
+      # 后端API地址（使用Docker网络内部地址）
+      - BACKEND_API_URL=${BACKEND_API_URL:-http://backend:8000}
+      - CHAINLIT_PORT=3000
+      - CHAINLIT_AUTH_SECRET=${CHAINLIT_AUTH_SECRET}
+      - DANTA_ACCESS_TOKEN=${DANTA_ACCESS_TOKEN}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - FIRECRAWL_API_KEY=${FIRECRAWL_API_KEY}
+    env_file:
+      - .env
+    volumes:
+      # 持久化数据库文件
+      - ./chainlit.db:/app/chainlit.db
+      # 持久化上传文件（如果有）
+      - ./chat_files:/app/.files
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:3000')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - danta-network
+    # 如果有后端服务，添加依赖
+    # depends_on:
+    #   - backend
+
+  # 如果需要，可以添加后端服务配置
+  # backend:
+  #   image: danta-backend:latest
+  #   container_name: ask-danta-backend
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - DATABASE_URL=postgresql://user:pass@db:5432/danta
+  #   networks:
+  #     - danta-network
+  #   restart: unless-stopped
+
+networks:
+  danta-network:
+    driver: bridge
+
+volumes:
+  chainlit-data:
+    driver: local

@@ -1,0 +1,103 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# 虚拟环境
+venv/
+env/
+ENV/
+.venv
+
+# 环境变量文件（敏感信息）
+.env
+.env.local
+.env.*.local
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+chainlit.db
+
+# 日志文件
+*.log
+.chainlit/logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# GitHub
+.github/
+
+# 测试
+.pytest_cache/
+.coverage
+htmlcov/
+cypress/
+*.test.py
+
+# 文档
+*.md
+!README.md
+docs/
+
+# 前端构建文件（如果不需要）
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# TypeScript
+*.ts
+*.tsx
+tsconfig.json
+
+# 其他配置文件
+.editorconfig
+.eslintrc
+.prettierrc
+cypress.config.ts
+lint-staged.config.js
+
+# 临时文件
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Zone.Identifier 文件（Windows WSL）
+*.Zone.Identifier
+
+# 诊断脚本
+diagnose_*.py
+init_db.py
+
+# 图片（如果不需要）
+images/
+
+# 其他不需要的文件
+CHANGELOG.md
+CONTRIBUTING.md
+PROJECT_README.md
+STARTUP_GUIDE.md
+RELENG.md
+PRIVACY_POLICY.md
+LICENSE
